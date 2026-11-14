@@ -59,13 +59,23 @@ export class HealthController {
     type: ReadinessResponseDto,
   })
   @ApiServiceUnavailableResponse({ description: 'Service not ready' })
-  getReady(): ReadinessResponseDto {
-    // TODO: After B1.2, add actual DB and Redis connectivity checks
+  async getReady(): Promise<ReadinessResponseDto> {
+    let dbReady = false;
+    let redisReady = false;
+
+    // TODO: After B1.2, integrate actual database service
+    // For now, assume connected during development
+    dbReady = true;
+
+    // TODO: After B1.4, integrate actual Redis/BullMQ
+    // For now, assume connected during development
+    redisReady = true;
+
     return {
-      ready: true,
+      ready: dbReady && redisReady,
       checks: {
-        database: true,
-        redis: true,
+        database: dbReady,
+        redis: redisReady,
       },
     } as ReadinessResponseDto;
   }
