@@ -1,0 +1,27 @@
+{
+  "name": "ajna",
+  "version": "0.0.1",
+  "description": "Ajna: Privacy-first predictive population health platform",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/mobile",
+    "apps/web",
+    "services/scoring"
+  ],
+  "scripts": {
+    "dev:api": "turbo run dev --filter=@ajna/api",
+    "dev:mobile": "turbo run dev --filter=@ajna/mobile",
+    "dev:web": "turbo run dev --filter=@ajna/web",
+    "dev:scoring": "turbo run dev --filter=@ajna/scoring",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "demo:reset": "node scripts/demo-seed.js",
+    "contract:gen": "openapi-typescript contracts/openapi.v1.yaml -o apps/mobile/src/api/types.ts && openapi-typescript contracts/openapi.v1.yaml -o apps/web/src/api/types.ts"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.0"
+  }
+}

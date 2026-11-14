@@ -1,0 +1,17 @@
+# P0.1 Wearable Ingestion Prototype
+
+# Data processing
+numpy==1.24.3
+pandas==2.0.2
+scipy==1.10.4
+
+# Validation
+jsonschema==4.17.3
+
+# Database (optional, for testing against real schema)
+psycopg2-binary==2.9.6
+alembic==1.11.1
+
+# Utilities
+python-dotenv==1.0.0
+click==8.1.3

@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Canonical Wearable Daily Metrics",
+  "description": "Production payload shape for daily wearable metrics. Normalized from vendor-specific payloads.",
+  "type": "object",
+  "required": [
+    "source",
+    "date",
+    "metrics"
+  ],
+  "properties": {
+    "source": {
+      "type": "string",
+      "enum": [
+        "oura",
+        "generic",
+        "simulator"
+      ],
+      "description": "Vendor or source identifier"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date in YYYY-MM-DD (UTC)"
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "hrv_rmssd_ms",
+        "resting_hr_bpm",
+        "sleep_total_min"
+      ],
+      "properties": {
+        "hrv_rmssd_ms": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 300,
+          "description": "Heart rate variability (RMSSD) in milliseconds. Valid range: 1-300 ms."
+        },
+        "skin_temp_dev_c": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": -10,
+          "maximum": 10,
+          "description": "Skin temperature deviation from personal baseline in °C. Can be null if not available."
+        },
+        "resting_hr_bpm": {
+          "type": "number",
+          "minimum": 30,
+          "maximum": 120,
+          "description": "Resting heart rate in beats per minute. Valid range: 30-120 bpm."
+        },
+        "sleep_total_min": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "Total sleep time in minutes (0-24 hours)"
+        },
+        "sleep_deep_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "Deep sleep in minutes. Can be null."
+        },
+        "sleep_rem_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "REM sleep in minutes. Can be null."
+        },
+        "sleep_light_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "Light sleep in minutes. Can be null."
+        },
+        "sleep_awake_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "Awake time during sleep period in minutes. Can be null."
+        },
+        "sleep_efficiency": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Sleep efficiency as fraction (0-1). Can be null."
+        },
+        "activity_recovery_ratio": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Activity/recovery ratio. Can be null."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "source": "simulator",
+      "date": "2026-11-14",
+      "metrics": {
+        "hrv_rmssd_ms": 45.5,
+        "skin_temp_dev_c": 0.3,
+        "resting_hr_bpm": 62,
+        "sleep_total_min": 480,
+        "sleep_deep_min": 120,
+        "sleep_rem_min": 140,
+        "sleep_light_min": 180,
+        "sleep_awake_min": 40,
+        "sleep_efficiency": 0.92,
+        "activity_recovery_ratio": 1.1
+      }
+    }
+  ]
+}
