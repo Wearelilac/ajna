@@ -1,70 +1,74 @@
 /**
- * common/limits.ts
- *
- * P0.1 throughput limits from the wearable ingestion prototype.
- * These constraints are read from environment and enforced at request time.
- *
- * Source: findings/P0.1-findings.md
+ * Application limits from P0.1, P0.2, P0.3, P0.4 findings.
+ * Configured at runtime, read by all feature files.
+ * 00-data-protection-model.md, section 5 (retention defaults).
  */
-
 export const LIMITS = {
-  // From P0.1 wearable ingestion sim
+  // P0.1: Wearable Ingestion
   WEARABLE: {
-    // Maximum days in a single batch ingest
-    BATCH_SIZE_MAX: parseInt(process.env.AJNA_WEARABLE_BATCH_SIZE_MAX || '60', 10),
-    // Queue jobs per minute (from P0.1 BullMQ testing on free tiers)
-    JOBS_PER_MINUTE_MAX: 1000, // Will be updated after P0.1 runs
+    BATCH_SIZE_MAX: 60, // Max days per batch
+    JOBS_PER_MINUTE_MAX: 1000, // Conservative estimate for BullMQ free tier
+    METRICS_BATCH_MAX: 1000, // Max wearable records per request
   },
 
-  // From P0.2 monitor session limits
-  MONITOR_ME: {
-    // Maximum session duration in seconds (from P0.2 OS limits testing)
-    SESSION_CAP_SEC: parseInt(process.env.AJNA_MONITOR_SESSION_CAP_SEC || '600', 10),
-    // Maximum flags per session to prevent spam
-    FLAGS_PER_SESSION_MAX: parseInt(process.env.AJNA_MONITOR_FLAGS_PER_SESSION_MAX || '100', 10),
-  },
-
-  // Retention windows (from 00-data-protection-model.md)
-  RETENTION: {
-    // Raw audio: 0 (ephemeral only)
-    AUDIO_BUFFER_SEC: 10,
-    // De-identified flags: 30 days
-    FLAGS_DAYS: 30,
-    // Crisis reviews: 12 months
-    CRISIS_REVIEW_DAYS: 365,
-    // Wearable metrics: 13 months
-    WEARABLE_METRICS_DAYS: 13 * 30,
-    // Audit log: 24 months
-    AUDIT_LOG_DAYS: 24 * 30,
-  },
-
-  // Population aggregation (from 00-data-protection-model.md)
-  POPULATION: {
-    // Minimum group size for suppression (K)
-    SUPPRESSION_K: parseInt(process.env.AJNA_POPULATION_SUPPRESSION_K || '10', 10),
-  },
-
-  // Baseline computation (from P0.1)
+  // P0.1: Baseline Computation
   BASELINE: {
-    // Minimum valid days before first flag can be raised
-    MIN_VALID_DAYS: 14,
-    // Trailing window for baseline (excluding current day)
-    WINDOW_DAYS: 30,
-    // Z-score threshold for deviation flag
-    Z_THRESHOLD: 3,
-    // Standard deviation floor (below this, no z-score computed)
-    SD_FLOOR: 0.001,
+    MIN_VALID_DAYS: 14, // Minimum days before first flag
+    WINDOW_DAYS: 30, // Trailing baseline window
+    Z_THRESHOLD: 3, // Deviation detection threshold (|z| > 3)
+    SD_FLOOR: 0.001, // Standard deviation floor
   },
-};
 
-export const validateLimits = (): void => {
-  if (LIMITS.WEARABLE.BATCH_SIZE_MAX < 1 || LIMITS.WEARABLE.BATCH_SIZE_MAX > 365) {
-    throw new Error('AJNA_WEARABLE_BATCH_SIZE_MAX must be between 1 and 365');
-  }
-  if (LIMITS.MONITOR_ME.SESSION_CAP_SEC < 60 || LIMITS.MONITOR_ME.SESSION_CAP_SEC > 3600) {
-    throw new Error('AJNA_MONITOR_SESSION_CAP_SEC must be between 60 and 3600 seconds');
-  }
-  if (LIMITS.POPULATION.SUPPRESSION_K < 5) {
-    throw new Error('AJNA_POPULATION_SUPPRESSION_K must be at least 5');
-  }
-};
+  // P0.1: Personal Resilience Index
+  PRI: {
+    WEIGHTS: {
+      hrv_rmssd_ms: 2.0,
+      resting_hr_bpm: 1.5,
+      sleep_efficiency: 2.0,
+      activity_recovery_ratio: 1.0,
+    },
+  },
+
+  // P0.2: Acoustic Inference
+  ACOUSTIC: {
+    AUDIO_SAMPLE_RATE: 16000, // Hz
+    AUDIO_CHANNELS: 1, // Mono
+    RING_BUFFER_DURATION_SEC: 10, // Seconds
+    INFERENCE_LATENCY_P95_MS: 20, // Milliseconds
+    SESSION_CAP_SEC: 600, // 10 minutes
+    FLAGS_PER_SESSION_MAX: 100,
+    CONFIDENCE_THRESHOLD: 0.5,
+    BATTERY_DRAIN_PER_HOUR_PERCENT: 10, // Estimated
+    MIC_PERMISSION_NAME: 'android.permission.RECORD_AUDIO', // Android
+  },
+
+  // P0.3: pgvector Population Aggregation (populated after P0.3)
+  POPULATION: {
+    SMALL_CELL_K: 10, // Minimum group size for reporting
+    AGGREGATION_WINDOW_DAYS: 7, // Weekly aggregates
+  },
+
+  // P0.4: Care-Gap Routing (populated after P0.4)
+  CARE_GAPS: {
+    PATHWAYS_MAX: 50, // Max care pathways
+    OUTREACH_DRAFT_MAX_CHAR: 5000, // Max chars per draft
+  },
+
+  // Data retention (00-data-protection-model.md, section 5)
+  RETENTION: {
+    RAW_AUDIO_SEC: 0, // Never persisted
+    FLAGS_ROW_LEVEL_DAYS: 30, // Then aggregated
+    CRISIS_REVIEW_MONTHS: 12,
+    WEARABLE_METRICS_MONTHS: 13,
+    OUTREACH_DRAFTS_MONTHS: 12,
+    AUDIT_CHAIN_MONTHS: 24,
+  },
+
+  // Rate limiting (default, per-route overridable)
+  RATE_LIMIT: {
+    MAX_REQUESTS_PER_MINUTE: 60,
+    MAX_BATCH_REQUESTS_PER_HOUR: 100,
+  },
+} as const;
+
+export type Limits = typeof LIMITS;

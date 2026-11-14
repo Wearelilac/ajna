@@ -1,0 +1,137 @@
+openapi: 3.0.0
+info:
+  title: Ajna API
+  description: Privacy-first population health platform
+  version: '1.0.0'
+servers:
+  - url: https://ajna-api.onrender.com
+    description: Production
+  - url: http://localhost:3000
+    description: Development
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 422
+        error:
+          type: string
+          example: Unprocessable Entity
+        code:
+          type: string
+          description: Stable error code (UPPER_SNAKE)
+          enum:
+            - INTERNAL_SERVER_ERROR
+            - NOT_FOUND
+            - RATE_LIMIT_EXCEEDED
+            - VALIDATION_FAILED
+            - INVALID_REQUEST_ID
+            - WEARABLE_PAYLOAD_INVALID
+            - WEARABLE_SUBJECT_NOT_FOUND
+            - FLAG_FIELD_NOT_ALLOWED
+            - FLAG_VALIDATION_FAILED
+            - UNAUTHORIZED
+            - FORBIDDEN
+            - CONSENT_REQUIRED
+            - DATABASE_ERROR
+            - SERVICE_UNAVAILABLE
+        message:
+          type: string
+          description: Safe message, no PHI or stack traces
+          example: metric hrv_rmssd_ms must be between 1 and 300
+        requestId:
+          type: string
+          format: uuid
+          description: Request ID for tracing
+      required:
+        - statusCode
+        - error
+        - code
+        - message
+        - requestId
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded]
+        timestamp:
+          type: string
+          format: date-time
+        checks:
+          type: object
+          properties:
+            database:
+              type: string
+              enum: [ok, degraded, unavailable]
+            redis:
+              type: string
+              enum: [ok, degraded, unavailable]
+      required:
+        - status
+        - timestamp
+        - checks
+
+    ReadinessResponse:
+      type: object
+      properties:
+        ready:
+          type: boolean
+        checks:
+          type: object
+          properties:
+            database:
+              type: boolean
+            redis:
+              type: boolean
+      required:
+        - ready
+        - checks
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token from B1.3 auth
+
+paths:
+  /v1/health:
+    get:
+      summary: Liveness probe
+      description: Fast health check, always responds unless crashed
+      operationId: getHealth
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /v1/ready:
+    get:
+      summary: Readiness probe
+      description: Checks DB and Redis connectivity, returns degraded flags if needed
+      operationId: getReady
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Service readiness status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadinessResponse'
+        '503':
+          description: Service not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
