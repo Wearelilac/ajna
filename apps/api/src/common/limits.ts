@@ -6,7 +6,7 @@
 export const LIMITS = {
   // P0.1: Wearable Ingestion
   WEARABLE: {
-    BATCH_SIZE_MAX: 60, // Max days per batch
+    BATCH_MAX_DAYS: 60, // Max days per batch (from B2.1 spec)
     JOBS_PER_MINUTE_MAX: 1000, // Conservative estimate for BullMQ free tier
     METRICS_BATCH_MAX: 1000, // Max wearable records per request
   },
