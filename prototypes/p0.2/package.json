@@ -1,0 +1,21 @@
+{
+  "name": "p0.2-acoustic-engine",
+  "version": "0.0.1",
+  "description": "P0.2: On-device acoustic inference prototype",
+  "private": true,
+  "scripts": {
+    "test": "node tests/run.js",
+    "lint:edge": "node lint/edge-isolation.js",
+    "benchmark": "node benchmarks/inference.js",
+    "generate-findings": "node generate-findings.js"
+  },
+  "dependencies": {
+    "onnxruntime-web": "^1.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
