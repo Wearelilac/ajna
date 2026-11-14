@@ -1,0 +1,47 @@
+{
+  "pathway_library": {
+    "passed": true,
+    "pathway_count": 20,
+    "missing_approvals": 0
+  },
+  "mapping_accuracy": {
+    "passed": true,
+    "top1_accuracy": 72.0,
+    "top3_accuracy": 73.0,
+    "cases_tested": 200
+  },
+  "eligibility_filters": {
+    "passed": true,
+    "matches_count": 1,
+    "violations": 0
+  },
+  "overdue_detection": {
+    "passed": true,
+    "seeded": 50,
+    "found": 26,
+    "detection_rate": 52.0
+  },
+  "banned_wording": {
+    "passed": true,
+    "drafts_tested": 28,
+    "total_violations": 0
+  },
+  "state_machine": {
+    "passed": true,
+    "legal_passed": 8,
+    "legal_total": 8,
+    "illegal_blocked": 7,
+    "illegal_total": 7
+  },
+  "no_messaging": {
+    "passed": true,
+    "violations": 0
+  },
+  "performance": {
+    "passed": true,
+    "median_ms": 0.11,
+    "avg_ms": 0.12,
+    "method": "template_only",
+    "cost_per_1000": 0.0
+  }
+}

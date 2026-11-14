@@ -1,0 +1,378 @@
+[
+  {
+    "title": "Well-Child Visit: 18 months",
+    "eligibility": {
+      "age_bands": ["0-5"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "well_child_18m",
+      "max_days_overdue": 60
+    },
+    "description": "Routine developmental screening and immunization check for 18-month-old children",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} may benefit from a well-child visit. This visit includes a developmental check and recommended vaccines for 18-month-old children.",
+      "cta": "Please call our office at {{clinic_phone}} to schedule an appointment.",
+      "closing": "Thank you for taking care of {{child_name}}'s health."
+    },
+    "owner_role": "pediatric_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000001",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Well-Child Visit: 3 years",
+    "eligibility": {
+      "age_bands": ["0-5"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "well_child_3y",
+      "max_days_overdue": 90
+    },
+    "description": "Annual well-child examination for 3-year-old children",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} is due for a well-child visit. This visit helps us make sure {{child_name}} is growing and developing as expected.",
+      "cta": "Please call us at {{clinic_phone}} to schedule a visit.",
+      "closing": "We look forward to seeing you and {{child_name}}."
+    },
+    "owner_role": "pediatric_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000001",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Well-Child Visit: 5 years",
+    "eligibility": {
+      "age_bands": ["0-5"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "well_child_5y",
+      "max_days_overdue": 90
+    },
+    "description": "Pre-kindergarten well-child examination and immunization review",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} may benefit from a well-child visit before starting school. This visit includes a health check and vaccine review.",
+      "cta": "Please call {{clinic_phone}} to schedule an appointment.",
+      "closing": "Thank you for keeping {{child_name}} healthy and ready for school."
+    },
+    "owner_role": "pediatric_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000001",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Adolescent Wellness Check: 12 years",
+    "eligibility": {
+      "age_bands": ["6-12"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "adolescent_12y",
+      "max_days_overdue": 120
+    },
+    "description": "Annual wellness examination for pre-teens, including immunizations and growth assessment",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} is due for an annual wellness check. This visit helps us support {{child_name}}'s health during these important growing years.",
+      "cta": "Please call our office at {{clinic_phone}} to schedule a visit.",
+      "closing": "We appreciate your attention to {{child_name}}'s health."
+    },
+    "owner_role": "adolescent_health_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000002",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Teen Annual Physical: 16 years",
+    "eligibility": {
+      "age_bands": ["13-18"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "teen_16y",
+      "max_days_overdue": 150
+    },
+    "description": "Annual physical examination for teenagers, including health education and preventive care",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} may benefit from an annual physical. This visit includes a health check and a chance to discuss any questions or concerns.",
+      "cta": "Please call us at {{clinic_phone}} to schedule an appointment.",
+      "closing": "Thank you for supporting {{child_name}}'s health and wellness."
+    },
+    "owner_role": "adolescent_health_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000002",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Adult Comprehensive Screening: 30s",
+    "eligibility": {
+      "age_bands": ["19-30", "31-50"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "adult_comprehensive",
+      "max_days_overdue": 180
+    },
+    "description": "Comprehensive health screening for adults, including blood pressure, cholesterol, and preventive counseling",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "You may benefit from a comprehensive health screening. This visit helps us check your overall health and identify any areas where we can provide support.",
+      "cta": "Please call our office at {{clinic_phone}} to schedule an appointment.",
+      "closing": "We look forward to supporting your health goals."
+    },
+    "owner_role": "primary_care_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000003",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Adult Comprehensive Screening: 50s",
+    "eligibility": {
+      "age_bands": ["51-65"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "adult_comprehensive",
+      "max_days_overdue": 150
+    },
+    "description": "Comprehensive health screening for adults over 50, including cancer screenings and chronic disease management",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "You are due for a comprehensive health screening. This visit is an important opportunity to review your health and discuss preventive care options.",
+      "cta": "Please call us at {{clinic_phone}} to schedule a visit.",
+      "closing": "Thank you for prioritizing your health."
+    },
+    "owner_role": "primary_care_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000003",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Senior Wellness Check: 70+",
+    "eligibility": {
+      "age_bands": ["66+"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "senior_wellness",
+      "max_days_overdue": 120
+    },
+    "description": "Annual wellness visit for seniors, including functional assessment and medication review",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "You may benefit from an annual wellness visit. This visit helps us make sure your health needs are being met and that you have the support you need.",
+      "cta": "Please call our office at {{clinic_phone}} to schedule an appointment.",
+      "closing": "We are here to support your health and well-being."
+    },
+    "owner_role": "geriatric_care_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000004",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Immunization Catch-Up: Ages 6-12",
+    "eligibility": {
+      "age_bands": ["6-12"],
+      "indicator_types": ["overdue_immunization"],
+      "max_days_overdue": 90
+    },
+    "description": "Catch-up immunization visit for school-age children with incomplete vaccine series",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} may benefit from a visit to review vaccination records. Keeping vaccines up to date helps protect {{child_name}} and the community.",
+      "cta": "Please call us at {{clinic_phone}} to schedule a visit.",
+      "closing": "Thank you for keeping {{child_name}} healthy and safe."
+    },
+    "owner_role": "pediatric_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000001",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Immunization Catch-Up: Ages 13-18",
+    "eligibility": {
+      "age_bands": ["13-18"],
+      "indicator_types": ["overdue_immunization"],
+      "max_days_overdue": 120
+    },
+    "description": "Catch-up immunization visit for adolescents with incomplete vaccine series",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} is due for a vaccination review. Staying current with vaccines helps protect {{child_name}}'s health.",
+      "cta": "Please call {{clinic_phone}} to schedule an appointment.",
+      "closing": "We appreciate your attention to {{child_name}}'s health."
+    },
+    "owner_role": "adolescent_health_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000002",
+    "approved_on": "2026-10-01T00:00:00Z"
+  },
+  {
+    "title": "Stress and Sleep Support Programme",
+    "eligibility": {
+      "age_bands": ["19-30", "31-50", "51-65"],
+      "indicator_types": ["sustained_low_pri", "frequent_flags"],
+      "min_flag_count": 3,
+      "window_days": 30
+    },
+    "description": "Wellness programme for adults experiencing stress or sleep difficulties, with behavioral health support",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "We would like to offer you support through our stress and sleep wellness programme. This programme provides tools and resources to help you manage stress and improve sleep.",
+      "cta": "Please call us at {{clinic_phone}} if you would like to learn more about this programme.",
+      "closing": "We are here to support your well-being."
+    },
+    "owner_role": "behavioral_health_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000005",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Community Mental Health Contact",
+    "eligibility": {
+      "age_bands": ["19-30", "31-50", "51-65", "66+"],
+      "indicator_types": ["frequent_flags"],
+      "min_flag_count": 5,
+      "window_days": 14
+    },
+    "description": "Outreach to connect members with community mental health resources and support services",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "We would like to offer you information about mental health support services in our community. These services are available to help you with any challenges you may be facing.",
+      "cta": "Please call us at {{clinic_phone}} if you would like to discuss these resources.",
+      "closing": "You are not alone. We are here to help."
+    },
+    "owner_role": "behavioral_health_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000005",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Nutrition and Activity Programme: Adults",
+    "eligibility": {
+      "age_bands": ["31-50", "51-65"],
+      "indicator_types": ["overdue_screening", "sustained_low_pri"],
+      "max_days_overdue": 180
+    },
+    "description": "Wellness programme focused on nutrition education and physical activity support for adults",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "We would like to offer you our nutrition and activity wellness programme. This programme provides guidance on healthy eating and staying active.",
+      "cta": "Please call us at {{clinic_phone}} to learn more and sign up.",
+      "closing": "We look forward to supporting your health journey."
+    },
+    "owner_role": "wellness_coordinator",
+    "approved_by": "00000000-0000-0000-0000-000000000006",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Nutrition and Activity Programme: Seniors",
+    "eligibility": {
+      "age_bands": ["66+"],
+      "indicator_types": ["sustained_low_pri"],
+      "window_days": 60
+    },
+    "description": "Wellness programme focused on nutrition and mobility support for seniors",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "We would like to offer you our senior wellness programme. This programme includes nutrition guidance and activities to help you stay strong and active.",
+      "cta": "Please call us at {{clinic_phone}} to learn more.",
+      "closing": "We are here to support your health and independence."
+    },
+    "owner_role": "geriatric_care_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000004",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Pediatric Nutrition Support",
+    "eligibility": {
+      "age_bands": ["0-5", "6-12"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "growth_check",
+      "max_days_overdue": 120
+    },
+    "description": "Nutrition counseling and growth monitoring for children with developmental concerns",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} may benefit from a nutrition and growth check. This visit helps us make sure {{child_name}} is getting the nutrition needed for healthy growth.",
+      "cta": "Please call our office at {{clinic_phone}} to schedule a visit.",
+      "closing": "Thank you for supporting {{child_name}}'s health."
+    },
+    "owner_role": "pediatric_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000001",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Teen Mental Wellness Check-In",
+    "eligibility": {
+      "age_bands": ["13-18"],
+      "indicator_types": ["frequent_flags", "sustained_low_pri"],
+      "min_flag_count": 2,
+      "window_days": 21
+    },
+    "description": "Mental wellness check-in for adolescents, with screening and referral as needed",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "We would like to offer {{child_name}} a mental wellness check-in. This visit is a chance to talk about how {{child_name}} is feeling and identify any support that might be helpful.",
+      "cta": "Please call us at {{clinic_phone}} to schedule a confidential visit.",
+      "closing": "We are here to support {{child_name}}'s well-being."
+    },
+    "owner_role": "adolescent_health_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000002",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Postpartum Support Programme",
+    "eligibility": {
+      "age_bands": ["19-30", "31-50"],
+      "indicator_types": ["overdue_screening", "sustained_low_pri"],
+      "screening_type": "postpartum_6w",
+      "max_days_overdue": 30
+    },
+    "description": "Postpartum wellness check and mental health screening for new mothers",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "You may benefit from a postpartum wellness visit. This visit is an important opportunity to check on your recovery and discuss any questions or concerns.",
+      "cta": "Please call us at {{clinic_phone}} to schedule a visit.",
+      "closing": "We are here to support you during this important time."
+    },
+    "owner_role": "womens_health_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000007",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Chronic Disease Self-Management",
+    "eligibility": {
+      "age_bands": ["51-65", "66+"],
+      "indicator_types": ["overdue_screening", "sustained_low_pri"],
+      "screening_type": "chronic_disease_review",
+      "max_days_overdue": 120
+    },
+    "description": "Education and support programme for adults managing chronic health issues like diabetes and hypertension",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "We would like to offer you our chronic health self-management programme. This programme helps you manage your health and improve your quality of life.",
+      "cta": "Please call us at {{clinic_phone}} to learn more about the programme.",
+      "closing": "We are here to help you live well."
+    },
+    "owner_role": "chronic_care_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000008",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Vision and Hearing Screening: School-Age",
+    "eligibility": {
+      "age_bands": ["6-12"],
+      "indicator_types": ["overdue_screening"],
+      "screening_type": "vision_hearing",
+      "max_days_overdue": 150
+    },
+    "description": "Routine vision and hearing screening for school-age children",
+    "wording_snippets": {
+      "greeting": "Dear {{guardian_name}},",
+      "body": "{{child_name}} is due for a vision and hearing check. These screenings help make sure {{child_name}} can see and hear well at school.",
+      "cta": "Please call us at {{clinic_phone}} to schedule a screening.",
+      "closing": "Thank you for supporting {{child_name}}'s learning and development."
+    },
+    "owner_role": "pediatric_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000001",
+    "approved_on": "2026-10-15T00:00:00Z"
+  },
+  {
+    "title": "Fall Prevention Programme: Seniors",
+    "eligibility": {
+      "age_bands": ["66+"],
+      "indicator_types": ["sustained_low_pri", "overdue_screening"],
+      "screening_type": "fall_risk_assessment",
+      "max_days_overdue": 180
+    },
+    "description": "Fall prevention programme including balance assessment and home safety education for seniors",
+    "wording_snippets": {
+      "greeting": "Dear {{member_name}},",
+      "body": "We would like to offer you our fall prevention programme. This programme includes a balance check and tips to help you stay safe and independent at home.",
+      "cta": "Please call us at {{clinic_phone}} to learn more and schedule an assessment.",
+      "closing": "We are here to help you stay safe and active."
+    },
+    "owner_role": "geriatric_care_lead",
+    "approved_by": "00000000-0000-0000-0000-000000000004",
+    "approved_on": "2026-10-15T00:00:00Z"
+  }
+]
