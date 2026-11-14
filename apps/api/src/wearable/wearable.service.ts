@@ -58,9 +58,12 @@ export class WearableService {
 
       const id = result.rows[0].id;
 
-      // Enqueue baseline computation job (async, fire-and-forget for prototype)
-      // In production: use BullMQ from B1.4
-      // await this.enqueueBaselineJob(subjectId);
+      // Enqueue baseline computation job
+      // TODO: Integrate BullMQ queue (from B1.4)
+      // await this.queueService.add('ajna.wearable.compute-baseline', {
+      //   subject_id: subjectId,
+      //   date: input.date,
+      // });
 
       return { id, date: input.date };
     } catch (error) {
