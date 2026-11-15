@@ -44,8 +44,10 @@ export const LIMITS = {
 
   // P0.3: pgvector Population Aggregation (populated after P0.3)
   POPULATION: {
+    MIN_K: 10, // K-anonymity threshold (minimum group size)
     SMALL_CELL_K: 10, // Minimum group size for reporting
     AGGREGATION_WINDOW_DAYS: 7, // Weekly aggregates
+    EMBEDDING_DIM: 128, // Vector dimension for similarity search
   },
 
   // P0.4: Care-Gap Routing (populated after P0.4)
