@@ -3,10 +3,11 @@ import { HealthModule } from './modules/health/health.module';
 import { WearableModule } from './wearable/wearable.module';
 import { RadarModule } from './radar/radar.module';
 import { MonitorModule } from './monitor/monitor.module';
+import { PopulationModule } from './population/population.module';
 import { RequestIdMiddleware } from './common/request-id.middleware';
 
 @Module({
-  imports: [HealthModule, WearableModule, RadarModule, MonitorModule],
+  imports: [HealthModule, WearableModule, RadarModule, MonitorModule, PopulationModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

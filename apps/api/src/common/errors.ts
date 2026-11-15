@@ -39,6 +39,9 @@ export const ERROR_CODES = {
   // Database (B1.2)
   DATABASE_ERROR: 'DATABASE_ERROR',
 
+  // Population (B4.1)
+  POPULATION_DATA_NOT_READY: 'POPULATION_DATA_NOT_READY',
+
   // Health checks
   SERVICE_UNAVAILABLE: 'SERVICE_UNAVAILABLE',
 } as const;
