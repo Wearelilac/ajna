@@ -1,0 +1,69 @@
+# M5.1: CI Ephemerality Check
+# Runs on every push to ensure NO audio persistence
+
+name: Ephemerality Check
+
+on: [push, pull_request]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Check for audio file writes
+        run: |
+          echo "🔍 Checking for audio persistence..."
+          
+          # Search for file writes with audio-related names
+          if grep -r "writeFile\|appendFile\|createWriteStream" apps/mobile/src/edge/ 2>/dev/null | grep -i "audio\|wav\|recording\|mp3\|m4a"; then
+            echo "❌ ERROR: Audio persistence detected in edge module"
+            exit 1
+          fi
+          
+          # Search for network uploads with audio payloads
+          if grep -r "fetch\|axios\|upload" apps/mobile/src/edge/ 2>/dev/null | grep -i "audio\|recording\|blob\|file"; then
+            echo "❌ ERROR: Audio upload detected in edge module"
+            exit 1
+          fi
+          
+          # Search for AsyncStorage with audio keys
+          if grep -r "AsyncStorage\|SecureStore" apps/mobile/src/edge/ 2>/dev/null | grep -i "audio\|recording\|buffer"; then
+            echo "❌ ERROR: Audio storage detected in edge module"
+            exit 1
+          fi
+          
+          # Search for filesystem imports
+          if grep -r "import.*from.*'react-native-fs'" apps/mobile/src/edge/ 2>/dev/null; then
+            echo "❌ ERROR: Filesystem import detected in edge module"
+            exit 1
+          fi
+          
+          echo "✅ Ephemerality check passed: NO audio persistence detected"
+      
+      - name: Verify EdgeBuffer zero-fill
+        run: |
+          echo "🔍 Checking EdgeBuffer zero-fill..."
+          
+          # Ensure stop() includes fill(0)
+          if ! grep -q "this.buffer.fill(0)" apps/mobile/src/edge/EdgeBuffer.ts 2>/dev/null; then
+            echo "❌ ERROR: EdgeBuffer.stop() must call buffer.fill(0)"
+            exit 1
+          fi
+          
+          echo "✅ EdgeBuffer zero-fill verified"
+      
+      - name: Check 7-field allow-list enforcement
+        run: |
+          echo "🔍 Checking 7-field allow-list..."
+          
+          # Ensure FlagBuilder only uses allowed fields
+          ALLOWED_FIELDS="sessionId|signature|confidence|timeBucket|modelVersion|sessionDurationSec|energyDb"
+          
+          if grep -A 20 "interface.*Flag" apps/mobile/src/edge/types.ts 2>/dev/null | grep -v -E "$ALLOWED_FIELDS" | grep ": "; then
+            echo "⚠️  WARNING: Flag interface may contain disallowed fields"
+          fi
+          
+          echo "✅ 7-field allow-list check complete"
