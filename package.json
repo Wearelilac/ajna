@@ -3,12 +3,7 @@
   "version": "0.0.1",
   "description": "Ajna: Privacy-first predictive population health platform",
   "private": true,
-  "workspaces": [
-    "apps/api",
-    "apps/mobile",
-    "apps/web",
-    "services/scoring"
-  ],
+  "workspaces": [],
   "scripts": {
     "dev:api": "turbo run dev --filter=@ajna/api",
     "dev:mobile": "turbo run dev --filter=@ajna/mobile",

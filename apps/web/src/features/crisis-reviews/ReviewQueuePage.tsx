@@ -27,7 +27,12 @@ export function ReviewQueuePage() {
     refetch,
   } = useCrisisReviews({
     state: stateFilter === 'all' ? undefined : stateFilter,
-    ownerId: ownerFilter === 'me' ? 'current-user-id' : undefined, // TODO: Get from auth
+    ownerId:
+      ownerFilter === 'me'
+        ? 'current-user-id'
+        : ownerFilter === 'unassigned'
+          ? '__unassigned__'
+          : undefined,
     escalatedToLead: escalatedOnly ? 'true' : undefined,
   });
 

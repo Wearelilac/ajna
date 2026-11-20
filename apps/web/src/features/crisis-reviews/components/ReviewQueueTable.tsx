@@ -105,7 +105,7 @@ function ReviewQueueRow({ review }: { review: CrisisReview }) {
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <Link
-          href={`/review/${review.id}`}
+          href={`/crisis-reviews/${review.id}`}
           className="text-blue-600 hover:text-blue-900"
         >
           View

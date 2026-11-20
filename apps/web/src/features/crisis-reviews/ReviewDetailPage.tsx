@@ -85,7 +85,7 @@ export function ReviewDetailPage({ reviewId }: ReviewDetailPageProps) {
             <p className="text-red-800">{error || 'Review not found'}</p>
           </div>
           <Link
-            href="/review"
+            href="/crisis-reviews"
             className="mt-4 inline-block text-blue-600 hover:text-blue-800"
           >
             ← Back to queue
@@ -99,7 +99,7 @@ export function ReviewDetailPage({ reviewId }: ReviewDetailPageProps) {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-4xl mx-auto">
         <Link
-          href="/review"
+          href="/crisis-reviews"
           className="text-blue-600 hover:text-blue-800 mb-4 inline-block"
         >
           ← Back to queue

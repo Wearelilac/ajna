@@ -101,11 +101,16 @@ function ClusterCard({ cluster }: { cluster: Cluster }) {
 
 function ScoreBadge({ score }: { score: number }) {
   const rounded = Math.round(score);
-  const color = rounded > 70 ? 'red' : rounded >= 40 ? 'yellow' : 'green';
+  const className =
+    rounded > 70
+      ? 'bg-red-100 text-red-800'
+      : rounded >= 40
+        ? 'bg-yellow-100 text-yellow-800'
+        : 'bg-green-100 text-green-800';
 
   return (
     <span
-      className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-${color}-100 text-${color}-800`}
+      className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${className}`}
     >
       Score: {rounded}
     </span>

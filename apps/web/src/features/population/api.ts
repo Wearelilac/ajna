@@ -1,15 +1,20 @@
 /**
  * W4.1: Population Dashboard API Client
+ * Uses demo store when no NEXT_PUBLIC_API_URL is set.
  */
 
 import { PopulationOverview, Community, Cluster } from './types';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+import { getApiBase, isDemoMode } from '@/demo/config';
+import { demoStore } from '@/demo/store';
 
 export async function fetchPopulationOverview(): Promise<PopulationOverview> {
-  const response = await fetch(`${API_BASE}/v1/population/overview`, {
+  if (isDemoMode()) {
+    return demoStore.getOverview();
+  }
+
+  const response = await fetch(`${getApiBase()}/v1/population/overview`, {
     headers: {
-      'Authorization': `Bearer ${getToken()}`,
+      Authorization: `Bearer ${getToken()}`,
     },
   });
 
@@ -26,17 +31,27 @@ export async function fetchCommunities(params: {
   limit?: number;
   offset?: number;
 }): Promise<Community[]> {
+  if (isDemoMode()) {
+    return demoStore.getCommunities({
+      regionCode: params.regionCode,
+      sort: params.sort,
+    });
+  }
+
   const queryParams = new URLSearchParams();
   if (params.regionCode) queryParams.append('regionCode', params.regionCode);
   if (params.sort) queryParams.append('sort', params.sort);
   if (params.limit) queryParams.append('limit', params.limit.toString());
   if (params.offset) queryParams.append('offset', params.offset.toString());
 
-  const response = await fetch(`${API_BASE}/v1/population/communities?${queryParams}`, {
-    headers: {
-      'Authorization': `Bearer ${getToken()}`,
+  const response = await fetch(
+    `${getApiBase()}/v1/population/communities?${queryParams}`,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error('Failed to fetch communities');
@@ -46,9 +61,13 @@ export async function fetchCommunities(params: {
 }
 
 export async function fetchClusters(): Promise<Cluster[]> {
-  const response = await fetch(`${API_BASE}/v1/population/clusters`, {
+  if (isDemoMode()) {
+    return demoStore.getClusters();
+  }
+
+  const response = await fetch(`${getApiBase()}/v1/population/clusters`, {
     headers: {
-      'Authorization': `Bearer ${getToken()}`,
+      Authorization: `Bearer ${getToken()}`,
     },
   });
 
@@ -60,6 +79,5 @@ export async function fetchClusters(): Promise<Cluster[]> {
 }
 
 function getToken(): string {
-  // TODO: Get from auth context
   return '';
 }

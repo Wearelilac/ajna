@@ -1,18 +1,30 @@
 /**
  * W3.1: State History Component
  * Shows audit trail from crisis_review_events
- * Placeholder (requires backend integration)
  */
 
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { CrisisReviewEvent } from '../types';
+import { crisisReviewsApi } from '../api';
 
 interface StateHistoryProps {
   reviewId: string;
 }
 
 export function StateHistory({ reviewId }: StateHistoryProps) {
-  // TODO: Fetch events from GET /v1/crisis-reviews/:id/events
-  const events: any[] = [];
+  const [events, setEvents] = useState<CrisisReviewEvent[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    crisisReviewsApi.events(reviewId).then((data) => {
+      if (!cancelled) setEvents(data);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [reviewId]);
 
   if (events.length === 0) {
     return null;
@@ -23,7 +35,7 @@ export function StateHistory({ reviewId }: StateHistoryProps) {
       <h2 className="text-lg font-semibold text-gray-900 mb-4">State History</h2>
 
       <div className="space-y-3">
-        {events.map((event: any) => (
+        {events.map((event) => (
           <div key={event.id} className="flex items-start space-x-3">
             <div className="flex-shrink-0 h-2 w-2 mt-2 rounded-full bg-blue-600" />
             <div>

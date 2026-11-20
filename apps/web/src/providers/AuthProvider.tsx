@@ -1,10 +1,14 @@
 /**
- * W1.1: Auth Provider (httpOnly Cookie-Based)
+ * W1.1: Auth Provider
+ * Demo mode auto-logs in as admin so the shareable prototype is usable immediately.
  */
 
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { isDemoMode } from '@/demo/config';
+import { demoStore } from '@/demo/store';
+import { DEMO_USER } from '@/demo/seed';
 
 interface User {
   id: string;
@@ -17,6 +21,8 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   isLoading: boolean;
+  isDemo: boolean;
+  resetDemo: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,14 +30,23 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const demo = isDemoMode();
 
   useEffect(() => {
-    // Check if user is authenticated (httpOnly cookie)
     checkAuth();
   }, []);
 
   const checkAuth = async () => {
     try {
+      if (demo) {
+        const demoUser = demoStore.getUser() || DEMO_USER;
+        if (!demoStore.getUser()) {
+          await demoStore.login(DEMO_USER.email, 'demo');
+        }
+        setUser(demoUser);
+        return;
+      }
+
       const response = await fetch('/api/auth/me', {
         credentials: 'include',
       });
@@ -48,6 +63,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const login = async (email: string, password: string) => {
+    if (demo) {
+      const userData = await demoStore.login(email, password);
+      setUser(userData);
+      return;
+    }
+
     const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -64,6 +85,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
+    if (demo) {
+      await demoStore.logout();
+      setUser(null);
+      return;
+    }
+
     await fetch('/api/auth/logout', {
       method: 'POST',
       credentials: 'include',
@@ -72,8 +99,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
   };
 
+  const resetDemo = () => {
+    demoStore.reset();
+    setUser(DEMO_USER);
+    window.location.href = '/app';
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, isLoading, isDemo: demo, resetDemo }}
+    >
       {children}
     </AuthContext.Provider>
   );

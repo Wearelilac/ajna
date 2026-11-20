@@ -90,7 +90,9 @@ export function PopulationDashboardPage() {
                       regionFilter={regionFilter}
                       sortBy={sortBy}
                       onRegionChange={setRegionFilter}
-                      onSortChange={setSortBy}
+                      onSortChange={(sort) =>
+                        setSortBy(sort === 'deprivation' ? 'deprivation' : 'name')
+                      }
                     />
                     <CommunityTable communities={communities} />
                   </>

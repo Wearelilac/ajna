@@ -107,11 +107,16 @@ export function CommunityTable({ communities }: Props) {
 
 function DeprivationBadge({ value }: { value: number }) {
   const percent = Math.round(value * 100);
-  const color = value > 0.7 ? 'red' : value > 0.4 ? 'yellow' : 'green';
+  const className =
+    value > 0.7
+      ? 'bg-red-100 text-red-800'
+      : value > 0.4
+        ? 'bg-yellow-100 text-yellow-800'
+        : 'bg-green-100 text-green-800';
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-${color}-100 text-${color}-800`}
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${className}`}
     >
       {percent}%
     </span>
@@ -120,11 +125,16 @@ function DeprivationBadge({ value }: { value: number }) {
 
 function PRIBadge({ value }: { value: number }) {
   const rounded = Math.round(value);
-  const color = rounded < 40 ? 'red' : rounded < 60 ? 'yellow' : 'green';
+  const className =
+    rounded < 40
+      ? 'bg-red-100 text-red-800'
+      : rounded < 60
+        ? 'bg-yellow-100 text-yellow-800'
+        : 'bg-green-100 text-green-800';
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-${color}-100 text-${color}-800`}
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${className}`}
     >
       {rounded}
     </span>
