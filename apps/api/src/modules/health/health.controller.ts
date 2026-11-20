@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiOkResponse, ApiServiceUnavailableResponse } from '@nestjs/swagger';
 import { z } from 'zod';
-import { ZodDto } from '@nestjs/zod';
+import { ZodDto } from 'nestjs-zod';
 
 export const HealthResponseSchema = z.object({
   status: z.enum(['healthy', 'degraded']),

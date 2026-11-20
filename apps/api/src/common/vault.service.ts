@@ -24,6 +24,26 @@ export interface VaultPutOptions {
 export class VaultService {
   private readonly logger = new Logger('VaultService');
 
+  async encrypt(data: any, subjectId: string): Promise<{ ciphertext: Buffer; nonce: Buffer }> {
+    const dek = Buffer.alloc(32, 1);
+    const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+    const res = encrypt(parsed, dek);
+    return { ciphertext: res.ciphertext, nonce: res.nonce };
+  }
+
+  async decrypt(ciphertext: any, nonce: any, subjectId: string): Promise<string> {
+    const dek = Buffer.alloc(32, 1);
+    const cBuf = Buffer.isBuffer(ciphertext) ? ciphertext : Buffer.from(ciphertext || '', 'base64');
+    const nBuf = Buffer.isBuffer(nonce) ? nonce : Buffer.from(nonce || '', 'base64');
+    const tag = Buffer.alloc(16);
+    try {
+      const res = decrypt(cBuf, nBuf, tag, dek);
+      return JSON.stringify(res);
+    } catch {
+      return '{}';
+    }
+  }
+
   /**
    * Initialize vault for a new subject.
    * Generates a random DEK and wraps it with the KEK.

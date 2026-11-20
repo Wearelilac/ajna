@@ -31,7 +31,7 @@ export class AppExceptionFilter implements ExceptionFilter {
     const reply = ctx.getResponse<FastifyReply>();
 
     let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-    let code = ERROR_CODES.INTERNAL_SERVER_ERROR;
+    let code: string = ERROR_CODES.INTERNAL_SERVER_ERROR;
     let message = 'Internal server error';
 
     // Extract or generate request ID

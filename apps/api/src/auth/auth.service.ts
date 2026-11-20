@@ -331,8 +331,8 @@ export class AuthService {
     return crypto.createHash('sha256').update(token).digest();
   }
 
-  private async issueTokens(subjectId: string, email: string, role: string): Promise<AuthTokens> {
-    const payload: JWTPayload = { subjectId, email, role };
+  private async issueTokens(subjectId: string, email: string, role: any): Promise<AuthTokens> {
+    const payload: JWTPayload = { subjectId, email, role: role as any };
 
     const accessToken = this.jwtService.sign(payload, {
       secret: this.JWT_SECRET,

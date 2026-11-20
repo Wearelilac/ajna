@@ -482,7 +482,7 @@ export class CrisisService {
     reason: string,
   ): Promise<void> {
     // Get previous hash
-    const prev = await client.query<{ row_hash: string }>(
+    const prev: any = await client.query(
       `
       SELECT row_hash
       FROM crisis_review_events

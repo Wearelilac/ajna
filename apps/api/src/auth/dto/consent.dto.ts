@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ZodDto } from '@nestjs/zod';
+import { ZodDto } from 'nestjs-zod';
 
 export const ConsentScopeEnum = z.enum(['wearable', 'monitor_me', 'population_use']);
 export type ConsentScope = z.infer<typeof ConsentScopeEnum>;

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ZodDto } from '@nestjs/zod';
+import { ZodDto } from 'nestjs-zod';
 
 export const LoginRequestSchema = z.object({
   email: z.string().email(),

@@ -4,10 +4,6 @@
 
 import { Injectable, NestMiddleware } from '@nestjs/common';
 
-type AnyRequest = Record<string, any>;
-type AnyResponse = Record<string, any> & { status: (code: number) => AnyResponse; json: (body: unknown) => void; setHeader: (k: string, v: unknown) => void };
-type NextFunction = () => void;
-
 interface RateLimitStore {
   [key: string]: {
     count: number;
@@ -24,7 +20,7 @@ export class RateLimitMiddleware implements NestMiddleware {
     setInterval(() => this.cleanup(), 5 * 60 * 1000);
   }
 
-  use(req: AnyRequest, res: AnyResponse, next: NextFunction) {
+  use(req: any, res: any, next: () => void) {
     const key = this.getKey(req);
     const limit = this.getLimit(req);
     const window = this.getWindow(req);
@@ -59,37 +55,34 @@ export class RateLimitMiddleware implements NestMiddleware {
     next();
   }
 
-  private getKey(req: Request): string {
-    // Use IP address + endpoint as key
-    const ip = req.ip || req.socket.remoteAddress || 'unknown';
-    const endpoint = req.path;
+  private getKey(req: any): string {
+    const ip = req?.ip || req?.socket?.remoteAddress || 'unknown';
+    const endpoint = req?.path || req?.url || '';
     return `${ip}:${endpoint}`;
   }
 
-  private getLimit(req: Request): number {
-    // Batch endpoints: 100 per hour
-    if (req.path.includes('/batch')) {
+  private getLimit(req: any): number {
+    const path = req?.path || req?.url || '';
+    if (path.includes('/batch')) {
       return 100;
     }
-
-    // Default: 60 per minute
     return 60;
   }
 
-  private getWindow(req: Request): number {
-    // Batch endpoints: 1 hour window
-    if (req.path.includes('/batch')) {
-      return 60 * 60 * 1000; // 1 hour
+  private getWindow(req: any): number {
+    const path = req?.path || req?.url || '';
+    if (path.includes('/batch')) {
+      return 60 * 60 * 1000;
     }
-
-    // Default: 1 minute window
-    return 60 * 1000; // 1 minute
+    return 60 * 1000;
   }
 
-  private setHeaders(res: Response, limit: number, remaining: number, resetIn: number) {
-    res.setHeader('X-RateLimit-Limit', limit);
-    res.setHeader('X-RateLimit-Remaining', remaining);
-    res.setHeader('X-RateLimit-Reset', resetIn);
+  private setHeaders(res: any, limit: number, remaining: number, resetIn: number) {
+    if (res?.setHeader) {
+      res.setHeader('X-RateLimit-Limit', limit);
+      res.setHeader('X-RateLimit-Remaining', remaining);
+      res.setHeader('X-RateLimit-Reset', resetIn);
+    }
   }
 
   private cleanup() {

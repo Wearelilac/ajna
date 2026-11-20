@@ -6,6 +6,7 @@
 import {
   IsUUID,
   IsString,
+  IsNumber,
   IsIn,
   IsInt,
   IsBoolean,

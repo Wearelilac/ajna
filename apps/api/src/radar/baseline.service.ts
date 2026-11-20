@@ -78,7 +78,7 @@ export class BaselineService {
     const baselines: Baseline[] = [];
     for (const metric of this.METRICS) {
       const values = windowData
-        .map((d) => d.metrics[metric])
+        .map((d) => (d.metrics as any)[metric])
         .filter((v) => v != null) as number[];
 
       if (values.length === 0) {
@@ -109,7 +109,7 @@ export class BaselineService {
     // Detect deviations (|z| > Z_THRESHOLD)
     const deviations: DeviationFlag[] = [];
     for (const baseline of baselines) {
-      const currentValue = currentDay.metrics[baseline.metric];
+      const currentValue = (currentDay.metrics as any)[baseline.metric];
       if (currentValue == null) {
         continue;
       }
@@ -305,13 +305,13 @@ export class BaselineService {
     let totalWeight = 0;
 
     for (const baseline of baselines) {
-      const currentValue = metrics[baseline.metric];
+      const currentValue = (metrics as any)[baseline.metric];
       if (currentValue == null || baseline.sd < LIMITS.BASELINE.SD_FLOOR) {
         continue;
       }
 
       const z = (currentValue - baseline.mean) / baseline.sd;
-      const weight = this.PRI_WEIGHTS[baseline.metric] || 1.0;
+      const weight = (this.PRI_WEIGHTS as any)[baseline.metric] || 1.0;
 
       // For metrics where higher is better (HRV, sleep efficiency, activity recovery):
       // PRI contribution increases with positive z

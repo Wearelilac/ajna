@@ -28,9 +28,9 @@ export async function rotateKEK(
     // Get all vaults
     const vaults = await client.query('SELECT subject_id, wrapped_dek, dek_nonce FROM vaults');
 
-    logger.log(`Found ${vaults.length} vaults to rotate`);
+    logger.log(`Found ${vaults.rows.length} vaults to rotate`);
 
-    for (const vault of vaults) {
+    for (const vault of vaults.rows) {
       const { subject_id, wrapped_dek, dek_nonce } = vault;
 
       try {

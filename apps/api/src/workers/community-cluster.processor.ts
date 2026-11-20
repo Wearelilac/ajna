@@ -132,6 +132,7 @@ export class CommunityClusterProcessor extends WorkerHost {
 
     let iteration = 0;
     let converged = false;
+    let maxMovement = 0;
 
     while (iteration < this.MAX_ITERATIONS && !converged) {
       // Assign vectors to nearest centroid
@@ -161,7 +162,7 @@ export class CommunityClusterProcessor extends WorkerHost {
       }
 
       // Check convergence (centroid movement)
-      const maxMovement = Math.max(
+      maxMovement = Math.max(
         ...centroids.map((c, idx) => this.euclideanDistance(c, newCentroids[idx])),
       );
 
@@ -274,8 +275,8 @@ export class CommunityClusterProcessor extends WorkerHost {
           cluster_id: cluster.cluster_id,
           label: 'Empty cluster',
           score: 0,
-          score_breakdown: {},
-          members: [],
+          score_breakdown: {} as Record<string, number>,
+          members: [] as string[],
         };
       }
 

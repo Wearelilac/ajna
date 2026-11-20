@@ -282,7 +282,7 @@ export class WearableService {
     ];
 
     // Check that not all optional fields are null
-    const hasAtLeastOneOptional = optionalFields.some((field) => metrics[field] != null);
+    const hasAtLeastOneOptional = optionalFields.some((field) => (metrics as any)[field] != null);
 
     // Required fields: hrv_rmssd_ms, resting_hr_bpm, sleep_total_min (validated by DTO)
     // This is just a sanity check

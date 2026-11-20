@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ZodDto } from '@nestjs/zod';
+import { ZodDto } from 'nestjs-zod';
 
 /**
  * User registration request.
