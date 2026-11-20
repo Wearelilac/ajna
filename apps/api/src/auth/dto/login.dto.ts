@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { ZodDto } from 'nestjs-zod';
+import { createZodDto } from 'nestjs-zod';
 
 export const LoginRequestSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1, 'Password required'),
 });
 
-export class LoginRequestDto extends ZodDto(LoginRequestSchema) {}
+export class LoginRequestDto extends createZodDto(LoginRequestSchema) {}
 
 export const LoginResponseSchema = z.object({
   accessToken: z.string(),
@@ -18,17 +18,17 @@ export const LoginResponseSchema = z.object({
   }),
 });
 
-export class LoginResponseDto extends ZodDto(LoginResponseSchema) {}
+export class LoginResponseDto extends createZodDto(LoginResponseSchema) {}
 
 export const RefreshRequestSchema = z.object({
   refreshToken: z.string(),
 });
 
-export class RefreshRequestDto extends ZodDto(RefreshRequestSchema) {}
+export class RefreshRequestDto extends createZodDto(RefreshRequestSchema) {}
 
 export const RefreshResponseSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
 });
 
-export class RefreshResponseDto extends ZodDto(RefreshResponseSchema) {}
+export class RefreshResponseDto extends createZodDto(RefreshResponseSchema) {}

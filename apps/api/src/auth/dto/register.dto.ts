@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ZodDto } from 'nestjs-zod';
+import { createZodDto } from 'nestjs-zod';
 
 /**
  * User registration request.
@@ -15,7 +15,7 @@ export const RegisterRequestSchema = z.object({
     .regex(/[!@#$%^&*]/, 'Password must contain at least one special character (!@#$%^&*)'),
 });
 
-export class RegisterRequestDto extends ZodDto(RegisterRequestSchema) {}
+export class RegisterRequestDto extends createZodDto(RegisterRequestSchema) {}
 
 /**
  * Registration response.
@@ -31,4 +31,4 @@ export const RegisterResponseSchema = z.object({
   }),
 });
 
-export class RegisterResponseDto extends ZodDto(RegisterResponseSchema) {}
+export class RegisterResponseDto extends createZodDto(RegisterResponseSchema) {}

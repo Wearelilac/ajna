@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiOkResponse, ApiServiceUnavailableResponse } from '@nestjs/swagger';
 import { z } from 'zod';
-import { ZodDto } from 'nestjs-zod';
+import { createZodDto } from 'nestjs-zod';
 
 export const HealthResponseSchema = z.object({
   status: z.enum(['healthy', 'degraded']),
@@ -12,7 +12,7 @@ export const HealthResponseSchema = z.object({
   }),
 });
 
-export class HealthResponseDto extends ZodDto(HealthResponseSchema) {}
+export class HealthResponseDto extends createZodDto(HealthResponseSchema) {}
 
 export const ReadinessResponseSchema = z.object({
   ready: z.boolean(),
@@ -22,7 +22,7 @@ export const ReadinessResponseSchema = z.object({
   }),
 });
 
-export class ReadinessResponseDto extends ZodDto(ReadinessResponseSchema) {}
+export class ReadinessResponseDto extends createZodDto(ReadinessResponseSchema) {}
 
 @Controller('v1')
 export class HealthController {
