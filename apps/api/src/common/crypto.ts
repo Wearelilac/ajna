@@ -52,7 +52,7 @@ function generateNonce(): Buffer {
 /**
  * Generate a random 256-bit DEK (Data Encryption Key).
  */
-function generateDEK(): Buffer {
+export function generateDEK(): Buffer {
   return randomBytes(DEK_LENGTH);
 }
 

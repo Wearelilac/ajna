@@ -89,3 +89,7 @@ export const Errors = {
   internalServerError: () =>
     createAppError(500, ERROR_CODES.INTERNAL_SERVER_ERROR, 'Internal server error'),
 };
+
+// Value alias so ErrorCode.X works as well as ERROR_CODES.X
+export const ErrorCode = ERROR_CODES;
+

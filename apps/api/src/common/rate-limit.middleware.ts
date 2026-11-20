@@ -3,7 +3,10 @@
  */
 
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
+
+type AnyRequest = Record<string, any>;
+type AnyResponse = Record<string, any> & { status: (code: number) => AnyResponse; json: (body: unknown) => void; setHeader: (k: string, v: unknown) => void };
+type NextFunction = () => void;
 
 interface RateLimitStore {
   [key: string]: {
@@ -21,7 +24,7 @@ export class RateLimitMiddleware implements NestMiddleware {
     setInterval(() => this.cleanup(), 5 * 60 * 1000);
   }
 
-  use(req: Request, res: Response, next: NextFunction) {
+  use(req: AnyRequest, res: AnyResponse, next: NextFunction) {
     const key = this.getKey(req);
     const limit = this.getLimit(req);
     const window = this.getWindow(req);
